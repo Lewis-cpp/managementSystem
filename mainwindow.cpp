@@ -25,9 +25,8 @@
 #include <QTextStream>
 #include <QDate>
 
-MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent)
-    , ui(new Ui::StudentMessageManagementSystemClass) // 正确初始化ui指针
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::StudentMessageManagementSystemClass) // 正确初始化ui指针
 {
     // 第一行必须调用Qt Designer生成的UI
     ui->setupUi(this);
@@ -73,8 +72,7 @@ MainWindow::MainWindow(QWidget* parent)
         QString::fromUtf8("* 编辑: 添加和删除学生记录\n") +
         QString::fromUtf8("* 查询: 按学号、姓名查询，最小年龄、按地址坐标查询\n") +
         QString::fromUtf8("* 显示: 前序遍历、中序遍历、后序遍历\n") +
-        QString::fromUtf8("* 帮助: 关于软件\n")
-        );
+        QString::fromUtf8("* 帮助: 关于软件\n"));
 }
 
 MainWindow::~MainWindow()
@@ -86,14 +84,14 @@ MainWindow::~MainWindow()
 // ==================== 辅助函数 (Helper Functions) ====================
 // create...Menu() 函数已被移除
 
-QString MainWindow::formatStudentInfo(const Student& student) const
+QString MainWindow::formatStudentInfo(const Student &student) const
 {
     return QString("ID: %1\n"
-        "Name: %2\n"
-        "Birth Date: %3\n"
-        "Gender: %4\n"
-        "Address: %5\n"
-        "Coordinates: (%6, %7)\n")
+                   "Name: %2\n"
+                   "Birth Date: %3\n"
+                   "Gender: %4\n"
+                   "Address: %5\n"
+                   "Coordinates: (%6, %7)\n")
         .arg(student.studentID)
         .arg(student.name)
         .arg(student.birthDate.toString("yyyy-MM-dd"))
@@ -103,7 +101,7 @@ QString MainWindow::formatStudentInfo(const Student& student) const
         .arg(student.addressCoordY);
 }
 
-QString MainWindow::formatMultipleStudents(const QVector<Student>& students) const
+QString MainWindow::formatMultipleStudents(const QVector<Student> &students) const
 {
     if (students.isEmpty())
     {
@@ -120,38 +118,32 @@ QString MainWindow::formatMultipleStudents(const QVector<Student>& students) con
     return result;
 }
 
-void MainWindow::updateStatus(const QString& message)
+void MainWindow::updateStatus(const QString &message)
 {
-    // statusBar() �� QMainWindow �����ú���������ֱ��ʹ��
+    // statusBar() 是QMainWindow的内置函数，可以直接使用
     statusBar()->showMessage(message);
 }
 
-void MainWindow::displayOutput(const QString& text)
+void MainWindow::displayOutput(const QString &text)
 {
     // 通过ui指针访问.ui文件中定义的displayArea控件
     ui->displayArea->setText(text);
 }
 
-void MainWindow::appendOutput(const QString& text)
+void MainWindow::appendOutput(const QString &text)
 {
     // 通过ui指针访问displayArea
     ui->displayArea->append(text);
 }
-
-// ===================================================================
-//
-//          所有按钮的点击事件处理已被移除，作为独立的业务逻辑
-//
-// ===================================================================
 
 // ==================== File Menu Implementation ====================
 
 void MainWindow::onNewContactList()
 {
     int result = QMessageBox::question(this,
-        "Confirmation",
-        "Clear all data?",
-        QMessageBox::Yes | QMessageBox::No);
+                                       "Confirmation",
+                                       "Clear all data?",
+                                       QMessageBox::Yes | QMessageBox::No);
 
     if (result == QMessageBox::Yes)
     {
@@ -169,8 +161,8 @@ void MainWindow::onLoadFromFile()
 {
     // 打开文件对话框选择要加载的数据文件
     QString filePath = QFileDialog::getOpenFileName(this,
-        "Open File", "",
-        "Text Files (*.txt *.csv);;All Files (*)");
+                                                    "Open File", "",
+                                                    "Text Files (*.txt *.csv);;All Files (*)");
 
     // 如果用户取消选择则返回
     if (filePath.isEmpty())
@@ -229,7 +221,8 @@ void MainWindow::onLoadFromFile()
     file.close();
 
     QString message = QString("Successfully imported %1 records\nFailed: %2")
-        .arg(successCount).arg(failCount);
+                          .arg(successCount)
+                          .arg(failCount);
     displayOutput(message);
     updateStatus(message);
 }
@@ -237,8 +230,8 @@ void MainWindow::onLoadFromFile()
 void MainWindow::onSaveToFile()
 {
     QString filePath = QFileDialog::getSaveFileName(this,
-        "Save File", "",
-        "Text Files (*.txt *.csv);;All Files (*)");
+                                                    "Save File", "",
+                                                    "Text Files (*.txt *.csv);;All Files (*)");
 
     if (filePath.isEmpty())
         return;
@@ -253,7 +246,7 @@ void MainWindow::onSaveToFile()
     QVector<Student> allStudents = studentTree.preorderTraversal();
 
     QTextStream out(&file);
-    for (const auto& student : allStudents)
+    for (const auto &student : allStudents)
     {
         out << student.studentID << ","
             << student.name << ","
@@ -271,8 +264,6 @@ void MainWindow::onSaveToFile()
     updateStatus(message);
 }
 
-// onExit() 函数已被移除，因为现在 actionExit 直接连接到 close()
-
 // ==================== Edit Menu Implementation ====================
 
 void MainWindow::onInsertStudent()
@@ -280,7 +271,8 @@ void MainWindow::onInsertStudent()
     bool ok;
 
     QString studentID = QInputDialog::getText(this, "Insert Student", "Student ID:", QLineEdit::Normal, "", &ok);
-    if (!ok || studentID.isEmpty()) return;
+    if (!ok || studentID.isEmpty())
+        return;
 
     Student dummy;
     if (studentTree.search(studentID, dummy))
@@ -290,10 +282,12 @@ void MainWindow::onInsertStudent()
     }
 
     QString name = QInputDialog::getText(this, "Insert Student", "Name:", QLineEdit::Normal, "", &ok);
-    if (!ok || name.isEmpty()) return;
+    if (!ok || name.isEmpty())
+        return;
 
     QString dateStr = QInputDialog::getText(this, "Insert Student", "Birth Date (yyyy-MM-dd):", QLineEdit::Normal, "", &ok);
-    if (!ok) return;
+    if (!ok)
+        return;
     QDate birthDate = QDate::fromString(dateStr, "yyyy-MM-dd");
     if (!birthDate.isValid())
     {
@@ -302,16 +296,20 @@ void MainWindow::onInsertStudent()
     }
 
     QString gender = QInputDialog::getText(this, "Insert Student", "Gender:", QLineEdit::Normal, "", &ok);
-    if (!ok) return;
+    if (!ok)
+        return;
 
     QString addressName = QInputDialog::getText(this, "Insert Student", "Address Name:", QLineEdit::Normal, "", &ok);
-    if (!ok) return;
+    if (!ok)
+        return;
 
     int coordX = QInputDialog::getInt(this, "Insert Student", "Address Coordinate X:", 0, -10000, 10000, 1, &ok);
-    if (!ok) return;
+    if (!ok)
+        return;
 
     int coordY = QInputDialog::getInt(this, "Insert Student", "Address Coordinate Y:", 0, -10000, 10000, 1, &ok);
-    if (!ok) return;
+    if (!ok)
+        return;
 
     Student newStudent(studentID, name, birthDate, gender, addressName, coordX, coordY);
     if (studentTree.insert(newStudent))
@@ -331,7 +329,8 @@ void MainWindow::onDeleteStudent()
     bool ok;
     QString studentID = QInputDialog::getText(this, "Delete Student", "Enter Student ID to delete:", QLineEdit::Normal, "", &ok);
 
-    if (!ok || studentID.isEmpty()) return;
+    if (!ok || studentID.isEmpty())
+        return;
 
     int result = QMessageBox::question(this, "Confirmation", QString("Delete student with ID %1?").arg(studentID), QMessageBox::Yes | QMessageBox::No);
 
@@ -357,7 +356,8 @@ void MainWindow::onQueryByID()
     bool ok;
     QString studentID = QInputDialog::getText(this, "Query by ID", "Enter Student ID:", QLineEdit::Normal, "", &ok);
 
-    if (!ok || studentID.isEmpty()) return;
+    if (!ok || studentID.isEmpty())
+        return;
 
     Student result;
     if (studentTree.search(studentID, result))
@@ -379,7 +379,8 @@ void MainWindow::onQueryByName()
     bool ok;
     QString name = QInputDialog::getText(this, "Query by Name", "Enter Name:", QLineEdit::Normal, "", &ok);
 
-    if (!ok || name.isEmpty()) return;
+    if (!ok || name.isEmpty())
+        return;
 
     QVector<Student> results = studentTree.searchByName(name);
 
@@ -419,7 +420,8 @@ void MainWindow::onQueryByAddressCoordX()
     bool ok;
     int coordX = QInputDialog::getInt(this, "Query by Coordinate X", "Enter Coordinate X:", 0, -10000, 10000, 1, &ok);
 
-    if (!ok) return;
+    if (!ok)
+        return;
 
     QVector<Student> results = studentTree.searchByAddressCoordX(coordX);
 
@@ -464,7 +466,8 @@ void MainWindow::onDisplayInorder()
 
     QVector<Student> students = studentTree.inorderTraversal();
     QString output = QString("===== In-order Traversal (Total %1) =====\n"
-        "Sorted by Student ID\n\n").arg(students.size());
+                             "Sorted by Student ID\n\n")
+                         .arg(students.size());
     output += formatMultipleStudents(students);
     displayOutput(output);
     updateStatus(QString("In-order traversal complete - %1 records").arg(students.size()));
@@ -490,11 +493,11 @@ void MainWindow::onDisplayPostorder()
 void MainWindow::onAbout()
 {
     QMessageBox::about(this,
-        "About",
-        "Student Contact Management System\n"
-        "Version 1.1\n\n"
-        "A binary search tree based student information management system.\n"
-        "Refactored to use Qt Designer for UI management.\n\n"
-        "Developer: Student Management Team\n"
-        "License: MIT");
+                       "About",
+                       "Student Contact Management System\n"
+                       "Version 1.1\n\n"
+                       "A binary search tree based student information management system.\n"
+                       "Refactored to use Qt Designer for UI management.\n\n"
+                       "Developer: Student Management Team\n"
+                       "License: MIT");
 }
