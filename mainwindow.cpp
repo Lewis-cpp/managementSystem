@@ -16,7 +16,7 @@
  */
 
 #include "mainwindow.h"
-#include "ui_StudentMessageManagementSystem.h" // ������ .ui �ļ����ɵ�ͷ�ļ�
+#include "ui_StudentMessageManagementSystem.h" // UI文件生成的头文件
 
 #include <QInputDialog>
 #include <QFileDialog>
@@ -27,45 +27,45 @@
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
-    , ui(new Ui::StudentMessageManagementSystemClass) // ��ȷ��ʼ�� ui ָ��
+    , ui(new Ui::StudentMessageManagementSystemClass) // 正确初始化ui指针
 {
-    // �ؼ�һ���������� Qt Designer ������UI
+    // 第一行必须调用Qt Designer生成的UI
     ui->setupUi(this);
 
     // Test Chinese message box display (commented out)
     // QMessageBox::information(this, "编码测试", "你好，世界！");
 
-    // ���ó�ʼ״̬����Ϣ
+    // 设置初始状态信息
     updateStatus("Ready");
 
-    // �������в˵��������źŵ���Ӧ�Ĳۺ���
-    // ��һ������������� create...Menu() ����
+    // 将菜单操作与相应的槽函数关联
+    // 第一行之后可以添加create...Menu()函数
 
-    // �ļ��˵�
+    // 文件菜单
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::onNewContactList);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::onLoadFromFile);
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::onSaveToFile);
-    connect(ui->actionExit, &QAction::triggered, this, &QWidget::close); // ֱ�����ӵ����ڵ�close��
+    connect(ui->actionExit, &QAction::triggered, this, &QWidget::close); // 直接连接到窗口的close()
 
-    // �༭�˵�
+    // 编辑菜单
     connect(ui->actionInsert, &QAction::triggered, this, &MainWindow::onInsertStudent);
     connect(ui->actionDelete, &QAction::triggered, this, &MainWindow::onDeleteStudent);
 
-    // ��ѯ�˵�
+    // 查询菜单
     connect(ui->actionQueryByID, &QAction::triggered, this, &MainWindow::onQueryByID);
     connect(ui->actionQueryByName, &QAction::triggered, this, &MainWindow::onQueryByName);
     connect(ui->actionQueryYoungest, &QAction::triggered, this, &MainWindow::onQueryYoungestStudent);
     connect(ui->actionQueryByCoordX, &QAction::triggered, this, &MainWindow::onQueryByAddressCoordX);
 
-    // ��ʾ�˵�
+    // 显示菜单
     connect(ui->actionDisplayPreorder, &QAction::triggered, this, &MainWindow::onDisplayPreorder);
     connect(ui->actionDisplayInorder, &QAction::triggered, this, &MainWindow::onDisplayInorder);
     connect(ui->actionDisplayPostorder, &QAction::triggered, this, &MainWindow::onDisplayPostorder);
 
-    // �����˵�
+    // 帮助菜单
     connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::onAbout);
 
-    // ��ʾ��ӭ��Ϣ
+    // 显示欢迎信息
     displayOutput(
         QString::fromUtf8("欢迎使用学生通讯录管理系统\n\n") +
         QString::fromUtf8("主要功能:\n") +
@@ -79,12 +79,12 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow()
 {
-    // �ͷ� ui ָ�룬��ֹ�ڴ�й©
+    // 释放ui指针，避免内存泄漏
     delete ui;
 }
 
-// ==================== �������� (Helper Functions) ====================
-// create...Menu() �����ѱ��Ƴ�
+// ==================== 辅助函数 (Helper Functions) ====================
+// create...Menu() 函数已被移除
 
 QString MainWindow::formatStudentInfo(const Student& student) const
 {
@@ -128,19 +128,19 @@ void MainWindow::updateStatus(const QString& message)
 
 void MainWindow::displayOutput(const QString& text)
 {
-    // ͨ�� ui ָ������� .ui �ļ��ж���� displayArea �ؼ�
+    // 通过ui指针访问.ui文件中定义的displayArea控件
     ui->displayArea->setText(text);
 }
 
 void MainWindow::appendOutput(const QString& text)
 {
-    // ͨ�� ui ָ����� displayArea
+    // 通过ui指针访问displayArea
     ui->displayArea->append(text);
 }
 
 // ===================================================================
 //
-//          ���вۺ�����ʵ�ֱ��ֲ��䣬��Ϊ������ҵ���߼�
+//          所有按钮的点击事件处理已被移除，作为独立的业务逻辑
 //
 // ===================================================================
 
@@ -271,7 +271,7 @@ void MainWindow::onSaveToFile()
     updateStatus(message);
 }
 
-// onExit() ���������Ƴ�����Ϊ�����ѽ� actionExit ֱ�����ӵ� close()
+// onExit() 函数已被移除，因为现在 actionExit 直接连接到 close()
 
 // ==================== Edit Menu Implementation ====================
 
