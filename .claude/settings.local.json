@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(FINAL_SUMMARY.md)",
+      "Bash(FINAL_VERIFICATION.md)",
+      "Bash(iconv:*)",
+      "Bash(sample_data_utf8.txt)",
+      "Bash(python3:*)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
