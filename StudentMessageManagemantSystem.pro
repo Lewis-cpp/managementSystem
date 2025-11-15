@@ -1,5 +1,6 @@
 
-QT += core gui widgets
+QT += core gui widgets sql
+QT += core gui widgets sql concurrent
 TARGET = StudentMessageManagementSystem
 TEMPLATE = app
 CONFIG += c++17

@@ -16,7 +16,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "binarysearchtree.h"
+#include <QSqlDatabase>
 #include "student.h" // 确保包含了 student.h
 
  // 向前声明 Qt Designer 生成的 UI 类
@@ -78,13 +78,21 @@ private:
     void displayOutput(const QString& text);
     void appendOutput(const QString& text);
 
+    // SQLite 数据库相关辅助函数
+    void initDatabase();
+    void createTable();
+
     // ==================== 成员变量 ====================
 
     // 指向由 Qt Designer 生成的 UI 类的指针
     Ui::StudentMessageManagementSystemClass* ui;
 
-    // 核心数据结构
-    BinarySearchTree<Student> studentTree;
+    // 核心数据结构 - SQLite 数据库连接
+    QSqlDatabase db;
+
+    // 分页相关
+    int currentPage;
+    const int PageSize = 100;
 };
 
 #endif // MAINWINDOW_H

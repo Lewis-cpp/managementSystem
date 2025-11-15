@@ -431,6 +431,8 @@ Makefile: ../../StudentMessageManagemantSystem.pro D:/App/Qt/6.9.2/mingw_64/mksp
 		../../StudentMessageManagemantSystem.pro \
 		D:/App/Qt/6.9.2/mingw_64/lib/Qt6Widgets.prl \
 		D:/App/Qt/6.9.2/mingw_64/lib/Qt6Gui.prl \
+		D:/App/Qt/6.9.2/mingw_64/lib/Qt6Sql.prl \
+		D:/App/Qt/6.9.2/mingw_64/lib/Qt6Concurrent.prl \
 		D:/App/Qt/6.9.2/mingw_64/lib/Qt6Core.prl \
 		D:/App/Qt/6.9.2/mingw_64/lib/Qt6EntryPoint.prl \
 		D:/App/Qt/6.9.2/mingw_64/mkspecs/features/build_pass.prf
@@ -796,6 +798,8 @@ D:/App/Qt/6.9.2/mingw_64/mkspecs/features/lex.prf:
 ../../StudentMessageManagemantSystem.pro:
 D:/App/Qt/6.9.2/mingw_64/lib/Qt6Widgets.prl:
 D:/App/Qt/6.9.2/mingw_64/lib/Qt6Gui.prl:
+D:/App/Qt/6.9.2/mingw_64/lib/Qt6Sql.prl:
+D:/App/Qt/6.9.2/mingw_64/lib/Qt6Concurrent.prl:
 D:/App/Qt/6.9.2/mingw_64/lib/Qt6Core.prl:
 D:/App/Qt/6.9.2/mingw_64/lib/Qt6EntryPoint.prl:
 D:/App/Qt/6.9.2/mingw_64/mkspecs/features/build_pass.prf:
