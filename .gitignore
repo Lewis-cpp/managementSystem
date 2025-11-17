@@ -1,0 +1,28 @@
+# 构建目录
+build/
+release/
+debug/
+
+# Qt Creator/VS User files
+*.pro.user
+*.pro.user.*
+*.user
+
+# 数据库文件
+*.db
+*.sqlite
+
+# 编译生成的文件
+*.o
+*.obj
+*.dll
+*.exe
+Makefile*
+
+# 文档和其他二进制文件
+*.doc
+*.docx
+*.pdf
+
+# 本地配置文件 (像这个也应该被忽略)
+.claude/
